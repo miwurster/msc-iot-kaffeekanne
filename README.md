@@ -1,8 +1,7 @@
 
 # IoT Kaffeekanne
 
-
-Contributor
+### Contributor
 
 * Daniel Joos
 * Eduard Yarolyan
