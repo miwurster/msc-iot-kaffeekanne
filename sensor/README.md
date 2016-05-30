@@ -86,8 +86,4 @@ We chose to use the _Python_ programming language to read the data from the devi
 there are already good and easy-to-use modules available that implement the parsing of the binary
 input event format. Here, we use the [`python-evdev` module](http://python-evdev.readthedocs.io/en/latest/).
 
-<img src="http://yuml.me/diagram/nofunky;scale:80/activity/
-(start)->(Read Keypress)-><a>[KEY_EOL]->(Print Line)->(Clear Line)->|b|,
-<a>[KEY_0..9]->(Append to Line)->|b|,
-|b|->(Read Keypress)"
-/>
+![Reading Keypress Activity Diagram](http://yuml.me/77b125cb)
