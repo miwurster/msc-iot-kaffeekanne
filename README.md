@@ -1,7 +1,9 @@
 
 # IoT Kaffeekanne
 
-### Contributor
+![Overview](http://rawgit.com/miwurster/msc-iot-kaffeekanne/master/overview.svg)
+
+### Contributors
 
 * Daniel Joos
 * Eduard Yarolyan
