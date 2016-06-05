@@ -88,11 +88,11 @@ input event format. Here, we use the [`python-evdev` module](http://python-evdev
 
 ![Reading Keypress Activity Diagram](http://yuml.me/77b125cb)
 
-## Python
+## Python Sensor
 
-The sensor script `scale_input.py` receives six measurements per seconds from the scale. The script queues the measurements in a blocking FIFO queue. In a defined interval (default: 1 second), a worker thread collects the queued measurements and forwards them to IBM Bluemix.
+The sensor script `scale_input.py` receives six measurements per seconds from the scale and queues them in a blocking FIFO queue. In a defined interval (default: 1 second), a worker thread collects the queued measurements and forwards them to [IBM Bluemix](http://www.ibm.com/cloud-computing/bluemix/internet-of-things).
 
-The `JSON` request body looks like the following:
+The `JSON` request body will look like the following:
 
 ```json
 {
