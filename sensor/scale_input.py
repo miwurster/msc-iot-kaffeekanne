@@ -12,6 +12,7 @@ University (HHZ), SoSe 2016.
 
 """
 
+import sys
 import logging
 import evdev
 import pyudev
@@ -188,4 +189,8 @@ def main():
             logging.info('Scale has been disconnected!')
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        logging.info('Script interrupted, program will exit')
+        sys.exit()
