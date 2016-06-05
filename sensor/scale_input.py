@@ -15,12 +15,28 @@ University (HHZ), SoSe 2016.
 import logging
 import evdev
 import pyudev
+import datetime
+import time
+import httplib2
+import json
 
-# The GRAM scale USB keyboard adapter:
+from array import array
+from threading import Thread
+from Queue import Queue
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)-15s [%(levelname)s] %(message)s')
+
+# The GRAM scale USB keyboard adapter
 DEFAULT_USB_VENDOR_ID = 'c216'
 DEFAULT_USB_PRODUCT_ID = '0109'
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)-15s [%(levelname)s] %(message)s')
+QUEUE_WORKER_INTERVAL = 1
+
+# Global queue variable
+queue = Queue()
+
+# Create a HTTP client
+http = httplib2.Http()
 
 def validate_device(device, product_id=DEFAULT_USB_PRODUCT_ID, vendor_id=DEFAULT_USB_VENDOR_ID):
     """Validate if the given device is the scale.
@@ -112,16 +128,15 @@ def read_from_device(devname, handler):
 
 class LineForwarder:
     """Handle key events and forward complete lines to STDOUT"""
-    line = ''
-    char_map = {}
-
     def __init__(self):
+        self.line = ''
+        self.char_map = {}
         for i in range(0, 10):
             self.char_map['KEY_{}'.format(str(i))] = str(i)
 
     def forward(self):
-        """Print the current line to STDOUT"""
-        print(self.line)
+        """Queue up current line"""
+        queue.put(self.line)
 
     def handle_event(self, event):
         """Handle the given keyboard event."""
@@ -134,8 +149,34 @@ class LineForwarder:
         if event.keycode in self.char_map:
             self.line += self.char_map[event.keycode]
 
+def queue_worker(q):
+    """Worker thread to handle queued measurements."""
+    while True:
+        if q.qsize() > 0:
+            logging.info('Handling [%s] measurements' % q.qsize())
+            measurements = []
+            while not q.empty():
+                measurements.append(q.get())
+                q.task_done()
+            timestamp = int(time.time())
+            request = {}
+            request['timestamp'] = timestamp
+            request['measurements'] = measurements
+            logging.info(json.dumps(request))
+
+            # TODO
+            #url = 'http://www.example.com/login'
+            #body = {'USERNAME': 'foo', 'PASSWORD': 'bar'}
+            #headers = {'Content-type': 'application/x-www-form-urlencoded'}
+            #response, content = http.request(url, 'POST', headers=headers, body=urllib.urlencode(body))
+
+            time.sleep(QUEUE_WORKER_INTERVAL)
+
 def main():
     """Get the scale keyboard device and read key events."""
+    worker = Thread(target=queue_worker, args=(queue,))
+    worker.setDaemon(True)
+    worker.start()
     while True:
         devname = get_scale_device()
         if not devname:

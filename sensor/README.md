@@ -26,7 +26,7 @@ Here, we choose the **UKEY** output format, which looks as follows:
 
 Where each `<Line>` is interpreted as single measurement sample and the `<Number>` is the weight,
 currently measured by the scale (in gram `g`). Lines have a fixed length. Numbers are right-aligned
-on the line and prepended by spaces.
+on the line and padded with spaces.
 
 ```
 Example output:
@@ -61,7 +61,7 @@ KEY_EOL
 The scale supports three printing modes: _Keypress_, _Stable_ and _Continous_. In the _Keypress_
 mode, it only prints when pressing a specific key on the scale. The _Stable_ mode prints the
 weight as soon as the scale detects that weight doesn't change anylonger. Here, the _Continous_
-mode was chosen where the scale continously prints the current weight.
+mode was chosen where the scale continuously prints the current weight.
 The USB keyboard adapter of the _GRAM RK-30_ scale forwards **6 Lines/Second** in the format
 described above.
 
@@ -87,3 +87,33 @@ there are already good and easy-to-use modules available that implement the pars
 input event format. Here, we use the [`python-evdev` module](http://python-evdev.readthedocs.io/en/latest/).
 
 ![Reading Keypress Activity Diagram](http://yuml.me/77b125cb)
+
+## Python
+
+The sensor script `scale_input.py` receives six measurements per seconds from the scale. The script queues the measurements in a blocking FIFO queue. In a defined interval (default: 1 second), a worker thread collects the queued measurements and forwards them to IBM Bluemix.
+
+The `JSON` request body looks like the following:
+
+```json
+{
+    "timestamp": 1465143375,
+    "measurements": [
+        "136",
+        "136",
+        "136",
+        "136",
+        "136",
+        "136",
+        "136"
+    ]
+}
+```
+
+### Requirements
+
+* Python 2.7.x
+* Python libraries `evdev`, `pyudev`, `logging` and `httplib2`
+
+    ```
+    pip install evdev pyudev logging httplib2
+    ```
