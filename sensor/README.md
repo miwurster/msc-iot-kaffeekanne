@@ -160,7 +160,7 @@ The sketch below shows the overall data flow in our Python Sensor:
 ### Systemd Service
 
 To run the scale input script as daemon in the background, execute the following
-steps as root user:
+steps as `root` user:
 
 ```
 # cp scale-input.service /lib/systemd/system
