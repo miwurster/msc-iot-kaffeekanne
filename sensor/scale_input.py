@@ -18,10 +18,10 @@ import evdev
 import pyudev
 import datetime
 import time
-import httplib2
 import json
 
-from array import array
+import ibmiotf.device
+
 from threading import Thread
 from Queue import Queue
 
@@ -31,13 +31,12 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)-15s [%(levelname)s] %
 DEFAULT_USB_VENDOR_ID = 'c216'
 DEFAULT_USB_PRODUCT_ID = '0109'
 
-QUEUE_WORKER_INTERVAL = 1
+QUEUE_MEASUREMENTS_WORKER_INTERVAL = 1
+QUEUE_PAYLOAD_WORKER_INTERVAL = 10
 
 # Global queue variable
-queue = Queue()
-
-# Create a HTTP client
-http = httplib2.Http()
+queue_measurements = Queue()
+queue_payload = Queue()
 
 def validate_device(device, product_id=DEFAULT_USB_PRODUCT_ID, vendor_id=DEFAULT_USB_VENDOR_ID):
     """Validate if the given device is the scale.
@@ -137,7 +136,7 @@ class LineForwarder:
 
     def forward(self):
         """Queue up current line"""
-        queue.put(self.line)
+        queue_measurements.put(self.line)
 
     def handle_event(self, event):
         """Handle the given keyboard event."""
@@ -150,7 +149,7 @@ class LineForwarder:
         if event.keycode in self.char_map:
             self.line += self.char_map[event.keycode]
 
-def queue_worker(q):
+def queue_measurements_worker(q):
     """Worker thread to handle queued measurements."""
     while True:
         if q.qsize() > 0:
@@ -159,23 +158,32 @@ def queue_worker(q):
             while not q.empty():
                 measurements.append(q.get())
                 q.task_done()
-            timestamp = int(time.time())
-            request = {}
-            request['timestamp'] = timestamp
-            request['measurements'] = measurements
-            logging.info(json.dumps(request))
+            payload = {
+                'timestamp' = int(time.time()),
+                'measurements' = measurements
+            }
+            queue_payload.put(payload)
+            logging.info(json.dumps('Queue up request payload: %s' % payload))
+            time.sleep(QUEUE_MEASUREMENTS_WORKER_INTERVAL)
 
-            # TODO
-            #url = 'http://www.example.com/login'
-            #body = {'USERNAME': 'foo', 'PASSWORD': 'bar'}
-            #headers = {'Content-type': 'application/x-www-form-urlencoded'}
-            #response, content = http.request(url, 'POST', headers=headers, body=urllib.urlencode(body))
-
-            time.sleep(QUEUE_WORKER_INTERVAL)
+def queue_payload_worker(q):
+    """Worker thread to handle queued payloads."""
+    while True:
+        if q.qsize() > 0:
+            logging.info('Handling [%s] payloads' % q.qsize())
+            payloads = []
+            while not q.empty():
+                payloads.append(q.get())
+                q.task_done()
+            logging.info(json.dumps('Send payloads: %s' % payloads))
+            time.sleep(QUEUE_PAYLOAD_WORKER_INTERVAL)
 
 def main():
     """Get the scale keyboard device and read key events."""
-    worker = Thread(target=queue_worker, args=(queue,))
+    worker = Thread(target=queue_measurements_worker, args=(queue_measurements,))
+    worker.setDaemon(True)
+    worker.start()
+    worker = Thread(target=queue_payload_worker, args(queue_payload,))
     worker.setDaemon(True)
     worker.start()
     while True:
@@ -190,7 +198,11 @@ def main():
 
 if __name__ == '__main__':
     try:
+        #options = ibmiotf.device.ParseConfigFile('ibm.conf')
+        #client = ibmiotf.device.Client(options)
         main()
+    except ibmiotf.ConnectionException as e:
+        logging.info('Error connecting to IBM Watson IoT Platform: %s' % e.value)
     except KeyboardInterrupt:
         logging.info('Script interrupted, program will exit')
         sys.exit()
