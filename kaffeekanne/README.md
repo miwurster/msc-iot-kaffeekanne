@@ -1,7 +1,7 @@
 
 ## Web UI
 
-> Simple web interface using Ionic2
+> Simple web interface using [Ionic 2](http://ionicframework.com/docs/v2/getting-started/tutorial/)
 
 ### Requirements
 
