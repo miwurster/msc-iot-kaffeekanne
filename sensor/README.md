@@ -109,7 +109,7 @@ The sensor script `scale_input.py` receives six measurements per seconds from th
 
 This payload is queued up in another FIFO queue (see `PAYLOAD QUEUE` in the sketch below).
 
-Every 30 seconds, an additional worker thread collects those payloads and forwards them in a single MQTT message to [IBM Bluemix](http://www.ibm.com/cloud-computing/bluemix/internet-of-things) -- using [IBM's client library for Python](https://github.com/ibm-watson-iot/iot-python).
+Every 30 seconds, an additional worker thread collects those payloads and forwards them in a single MQTT message to [IBM Bluemix](http://www.ibm.com/cloud-computing/bluemix/internet-of-things), using [IBM's client library for Python](https://github.com/ibm-watson-iot/iot-python).
 
 The message body will contain up to 30 measurement payloads and looks like the following:
 
