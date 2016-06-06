@@ -113,7 +113,7 @@ Every 30 seconds, an additional worker thread collects those payloads and forwar
 
 The message body will contain up to 30 measurement payloads and looks like the following:
 
-```json
+```
 [
     {
         "timestamp": 1465143375,
