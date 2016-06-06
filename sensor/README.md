@@ -90,7 +90,7 @@ input event format. Here, we use the [`python-evdev` module](http://python-evdev
 
 ## Python Sensor
 
-The sensor script `scale_input.py` receives six measurements per seconds from the scale and queues them in a blocking FIFO queue. In a defined interval (default: 1 second), a worker thread collects the queued measurements and combines them to a single `JSON` payload:
+The sensor script `scale_input.py` receives six measurements per seconds from the scale and queues them in a blocking FIFO queue (see `MEASUREMENTS QUEUE` in the sketch below). In a defined interval (default: 1 second), a worker thread collects the queued measurements and combines them to a single `JSON` payload:
 
 ```
 {
@@ -107,7 +107,7 @@ The sensor script `scale_input.py` receives six measurements per seconds from th
 }
 ```
 
-This payload is queued up in a another FIFO queue.
+This payload is queued up in another FIFO queue (see `PAYLOAD QUEUE` in the sketch below).
 
 Every 30 seconds, an additional worker thread collects those payloads and forwards them in a single MQTT message to [IBM Bluemix](http://www.ibm.com/cloud-computing/bluemix/internet-of-things) -- using [IBM's client library for Python](https://github.com/ibm-watson-iot/iot-python).
 
