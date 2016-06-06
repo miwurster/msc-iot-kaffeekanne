@@ -95,18 +95,32 @@ The sensor script `scale_input.py` receives six measurements per seconds from th
 The `JSON` request body will look like the following:
 
 ```json
-{
-    "timestamp": 1465143375,
-    "measurements": [
-        "136",
-        "136",
-        "136",
-        "136",
-        "136",
-        "136",
-        "136"
-    ]
-}
+[
+    {
+        "timestamp": 1465143375,
+        "measurements": [
+            "136",
+            "136",
+            "136",
+            "136",
+            "136",
+            "136",
+            "136"
+        ]
+    },
+    {
+        "timestamp": 1465143376,
+        "measurements": [
+            "136",
+            "136",
+            "136",
+            "136",
+            "136",
+            "136",
+            "136"
+        ]
+    }
+]
 ```
 
 ### Requirements
