@@ -183,7 +183,7 @@ def main():
     worker = Thread(target=queue_measurements_worker, args=(queue_measurements,))
     worker.setDaemon(True)
     worker.start()
-    worker = Thread(target=queue_payload_worker, args(queue_payload,))
+    worker = Thread(target=queue_payload_worker, args=(queue_payload,))
     worker.setDaemon(True)
     worker.start()
     while True:
