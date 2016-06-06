@@ -147,6 +147,9 @@ class LineForwarder:
         """Handle the given keyboard event."""
         if not event.keystate == evdev.KeyEvent.key_up:
             return
+        if self.mode == 'RIGHTSHIFT':
+            # ... ignore key presses
+            return
         if event.keycode == 'KEY_ENTER':
             self.forward()
             self.line = ''
@@ -154,13 +157,9 @@ class LineForwarder:
             return
         if event.keycode == 'KEY_RIGHTSHIFT':
             self.mode = 'RIGHTSHIFT'
-            logging.info('Right shift pressed')
             return
         if event.keycode in self.char_map and self.mode == 'NORMAL':
             self.line += self.char_map[event.keycode]
-        if self.mode == 'RIGHTSHIFT':
-            logging.info('In right shift mode')
-            return
 
 def queue_measurements_worker(q):
     """Worker thread to handle queued measurements."""
