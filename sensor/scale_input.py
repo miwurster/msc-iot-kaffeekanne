@@ -165,8 +165,8 @@ class LineForwarder:
 def queue_measurements_worker(q):
     """Worker thread to handle queued measurements."""
     while True:
-        if q.qsize() > 0:
-            logging.info('Handling [%s] measurements' % q.qsize())
+        qsize = q.qsize()
+        if qsize > 0:
             measurements = []
             while not q.empty():
                 measurement = q.get()
@@ -174,23 +174,23 @@ def queue_measurements_worker(q):
                 if measurement == '':
                     continue
                 measurements.append(int(measurement))
+            logging.info('Handling [%s] measurements: %s' % qsize, json.dumps(measurements))
             payload = {
                 'timestamp': int(time.time()),
                 'measurements': measurements
             }
             queue_payload.put(payload)
-            logging.info(json.dumps(payload))
             time.sleep(QUEUE_MEASUREMENTS_WORKER_INTERVAL)
 
 def queue_payload_worker(q):
     """Worker thread to handle queued payloads."""
     while True:
         if q.qsize() > 0:
-            logging.info('Handling [%s] payloads' % q.qsize())
             payloads = []
             while not q.empty():
                 payloads.append(q.get())
                 q.task_done()
+            logging.info('Sending payload containing [%s] measurement' % q.qsize())
             logging.debug(json.dumps(payloads))
             ibm_client.connect()
             ibm_client.publishEvent('measurements', 'json', payloads, 2)
