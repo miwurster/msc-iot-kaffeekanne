@@ -135,6 +135,7 @@ class LineForwarder:
     def __init__(self):
         self.line = ''
         self.char_map = {}
+        self.mode = 'NORMAL'
         for i in range(0, 10):
             self.char_map['KEY_{}'.format(str(i))] = str(i)
 
@@ -149,8 +150,11 @@ class LineForwarder:
         if event.keycode == 'KEY_ENTER':
             self.forward()
             self.line = ''
+            self.mode = 'NORMAL':
             return
-        if event.keycode in self.char_map:
+        if event.keycode == 'KEY_RIGHTSHIFT':
+            self.mode == 'RIGHTSHIFT':
+        if event.keycode in self.char_map and self.mode == 'NORMAL':
             self.line += self.char_map[event.keycode]
 
 def queue_measurements_worker(q):
@@ -167,7 +171,7 @@ def queue_measurements_worker(q):
                 'measurements': measurements
             }
             queue_payload.put(payload)
-            logging.debug(json.dumps(payload))
+            logging.info(json.dumps(payload))
             time.sleep(QUEUE_MEASUREMENTS_WORKER_INTERVAL)
 
 def queue_payload_worker(q):
