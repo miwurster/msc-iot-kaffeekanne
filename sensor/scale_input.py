@@ -156,7 +156,8 @@ class LineForwarder:
             self.mode = 'RIGHTSHIFT'
             return
         if self.mode == 'RIGHTSHIFT':
-            # ... ignore key presses
+            # Ignore keys after KEY_RIGHTSHIFT has been pressed ... until
+            # KEY_ENTER be pressed
             return
         if event.keycode in self.char_map and self.mode == 'NORMAL':
             self.line += self.char_map[event.keycode]
@@ -168,7 +169,7 @@ def queue_measurements_worker(q):
             logging.info('Handling [%s] measurements' % q.qsize())
             measurements = []
             while not q.empty():
-                measurements.append(q.get())
+                measurements.append(int(q.get()))
                 q.task_done()
             payload = {
                 'timestamp': int(time.time()),
