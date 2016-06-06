@@ -153,9 +153,14 @@ class LineForwarder:
             self.mode = 'NORMAL'
             return
         if event.keycode == 'KEY_RIGHTSHIFT':
-            self.mode == 'RIGHTSHIFT'
+            self.mode = 'RIGHTSHIFT'
+            logging.info('Right shift pressed')
+            return
         if event.keycode in self.char_map and self.mode == 'NORMAL':
             self.line += self.char_map[event.keycode]
+        if self.mode == 'RIGHTSHIFT':
+            logging.info('In right shift mode')
+            return
 
 def queue_measurements_worker(q):
     """Worker thread to handle queued measurements."""
