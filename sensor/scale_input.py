@@ -32,7 +32,7 @@ DEFAULT_USB_VENDOR_ID = 'c216'
 DEFAULT_USB_PRODUCT_ID = '0109'
 
 QUEUE_MEASUREMENTS_WORKER_INTERVAL = 1
-QUEUE_PAYLOAD_WORKER_INTERVAL = 10
+QUEUE_PAYLOAD_WORKER_INTERVAL = 30
 
 # Global queue variable
 queue_measurements = Queue()
@@ -163,7 +163,7 @@ def queue_measurements_worker(q):
                 'measurements': measurements
             }
             queue_payload.put(payload)
-            logging.info(json.dumps('Queue up request payload: %s' % payload))
+            logging.debug(json.dumps(payload))
             time.sleep(QUEUE_MEASUREMENTS_WORKER_INTERVAL)
 
 def queue_payload_worker(q):
@@ -175,7 +175,7 @@ def queue_payload_worker(q):
             while not q.empty():
                 payloads.append(q.get())
                 q.task_done()
-            logging.info(json.dumps('Send payloads: %s' % payloads))
+            logging.debug(json.dumps(payloads))
             time.sleep(QUEUE_PAYLOAD_WORKER_INTERVAL)
 
 def main():
