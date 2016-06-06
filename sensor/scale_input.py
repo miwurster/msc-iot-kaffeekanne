@@ -207,11 +207,10 @@ if __name__ == '__main__':
         options = {
             'org': 'xasyuj',
             'type': 'gram-rz-30k',
-            'id': 2,
+            'id': '2',
             'auth-method': 'token',
             'auth-token': 'JJ31YWRi@EksUeoKQ+'
         }
-        global ibm_client
         ibm_client = ibmiotf.device.Client(options)
         main()
     except ibmiotf.ConnectionException as e:
