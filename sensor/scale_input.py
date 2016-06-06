@@ -185,12 +185,13 @@ def queue_measurements_worker(q):
 def queue_payload_worker(q):
     """Worker thread to handle queued payloads."""
     while True:
-        if q.qsize() > 0:
+        qsize = q.qsize()
+        if qsize > 0:
             payloads = []
             while not q.empty():
                 payloads.append(q.get())
                 q.task_done()
-            logging.info('Sending payload containing [%s] measurements' % q.qsize())
+            logging.info('Sending payload containing [%s] measurements' % qsize)
             logging.debug(json.dumps(payloads))
             ibm_client.connect()
             ibm_client.publishEvent('measurements', 'json', payloads, 2)
