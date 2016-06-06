@@ -10,7 +10,7 @@ npm install -g ionic cordova
 ## Build the App
 
 ```bash
-ionic add Platform browser
+ionic add platform browser
 ionic build browser
 ```
 
