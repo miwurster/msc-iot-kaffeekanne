@@ -174,7 +174,7 @@ def queue_measurements_worker(q):
                 if measurement == '':
                     continue
                 measurements.append(int(measurement))
-            logging.info('Handling [%s] measurements: %s' % qsize, json.dumps(measurements))
+            logging.info('Handling [%s] measurements: %s' % (qsize, json.dumps(measurements)))
             payload = {
                 'timestamp': int(time.time()),
                 'measurements': measurements
