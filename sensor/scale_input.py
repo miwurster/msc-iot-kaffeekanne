@@ -169,8 +169,11 @@ def queue_measurements_worker(q):
             logging.info('Handling [%s] measurements' % q.qsize())
             measurements = []
             while not q.empty():
-                measurements.append(int(q.get()))
+                measurement = q.get()
                 q.task_done()
+                if measurement == '':
+                    measurement = '0'
+                measurements.append(int(measurement))
             payload = {
                 'timestamp': int(time.time()),
                 'measurements': measurements
