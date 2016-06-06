@@ -1,6 +1,8 @@
 
 ## Web UI
 
+> Simple web interface using Ionic2
+
 ### Requirements
 
 ```bash
