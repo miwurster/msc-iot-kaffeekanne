@@ -147,9 +147,6 @@ class LineForwarder:
         """Handle the given keyboard event."""
         if not event.keystate == evdev.KeyEvent.key_up:
             return
-        if self.mode == 'RIGHTSHIFT':
-            # ... ignore key presses
-            return
         if event.keycode == 'KEY_ENTER':
             self.forward()
             self.line = ''
@@ -157,6 +154,9 @@ class LineForwarder:
             return
         if event.keycode == 'KEY_RIGHTSHIFT':
             self.mode = 'RIGHTSHIFT'
+            return
+        if self.mode == 'RIGHTSHIFT':
+            # ... ignore key presses
             return
         if event.keycode in self.char_map and self.mode == 'NORMAL':
             self.line += self.char_map[event.keycode]
