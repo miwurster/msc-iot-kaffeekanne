@@ -1,13 +1,13 @@
 
-# Web UI
+## Web UI
 
-## Requirements
+### Requirements
 
 ```bash
 npm install -g ionic cordova
 ```
 
-## Build the App
+### Build the App
 
 ```bash
 ionic add platform browser
