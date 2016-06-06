@@ -153,7 +153,7 @@ class LineForwarder:
             self.mode = 'NORMAL'
             return
         if event.keycode == 'KEY_RIGHTSHIFT':
-            self.mode == 'RIGHTSHIFT':
+            self.mode == 'RIGHTSHIFT'
         if event.keycode in self.char_map and self.mode == 'NORMAL':
             self.line += self.char_map[event.keycode]
 
