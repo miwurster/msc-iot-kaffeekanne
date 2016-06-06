@@ -31,12 +31,16 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)-15s [%(levelname)s] %
 DEFAULT_USB_VENDOR_ID = 'c216'
 DEFAULT_USB_PRODUCT_ID = '0109'
 
+# Worker thread settings
 QUEUE_MEASUREMENTS_WORKER_INTERVAL = 1
 QUEUE_PAYLOAD_WORKER_INTERVAL = 30
 
 # Global queue variable
 queue_measurements = Queue()
 queue_payload = Queue()
+
+# Define the IBM Watson IoT client
+ibm_client = None
 
 def validate_device(device, product_id=DEFAULT_USB_PRODUCT_ID, vendor_id=DEFAULT_USB_VENDOR_ID):
     """Validate if the given device is the scale.
@@ -176,6 +180,8 @@ def queue_payload_worker(q):
                 payloads.append(q.get())
                 q.task_done()
             logging.debug(json.dumps(payloads))
+            ibm_client.connect()
+            ibm_client.publishEvent('measurements', 'json', payloads, 2)
             time.sleep(QUEUE_PAYLOAD_WORKER_INTERVAL)
 
 def main():
@@ -198,8 +204,15 @@ def main():
 
 if __name__ == '__main__':
     try:
-        #options = ibmiotf.device.ParseConfigFile('ibm.conf')
-        #client = ibmiotf.device.Client(options)
+        options = {
+            'org': 'xasyuj',
+            'type': 'gram-rz-30k',
+            'id': 2,
+            'auth-method': 'token',
+            'auth-token': 'JJ31YWRi@EksUeoKQ+'
+        }
+        global ibm_client
+        ibm_client = ibmiotf.device.Client(options)
         main()
     except ibmiotf.ConnectionException as e:
         logging.info('Error connecting to IBM Watson IoT Platform: %s' % e.value)
