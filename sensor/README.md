@@ -126,8 +126,8 @@ The `JSON` request body will look like the following:
 ### Requirements
 
 * Python 2.7.x
-* Python libraries `evdev`, `pyudev`, `logging` and `httplib2`
+* Python libraries `evdev`, `pyudev` and `ibmiotf`
 
     ```
-    pip install evdev pyudev logging httplib2
+    pip install evdev pyudev ibmiotf
     ```
