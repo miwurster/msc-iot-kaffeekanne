@@ -159,8 +159,8 @@ def queue_measurements_worker(q):
                 measurements.append(q.get())
                 q.task_done()
             payload = {
-                'timestamp' = int(time.time()),
-                'measurements' = measurements
+                'timestamp': int(time.time()),
+                'measurements': measurements
             }
             queue_payload.put(payload)
             logging.info(json.dumps('Queue up request payload: %s' % payload))
