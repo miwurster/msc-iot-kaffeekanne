@@ -172,7 +172,7 @@ def queue_measurements_worker(q):
                 measurement = q.get()
                 q.task_done()
                 if measurement == '':
-                    measurement = '0'
+                    continue
                 measurements.append(int(measurement))
             payload = {
                 'timestamp': int(time.time()),
