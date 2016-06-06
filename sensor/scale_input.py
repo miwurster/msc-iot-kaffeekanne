@@ -150,7 +150,7 @@ class LineForwarder:
         if event.keycode == 'KEY_ENTER':
             self.forward()
             self.line = ''
-            self.mode = 'NORMAL':
+            self.mode = 'NORMAL'
             return
         if event.keycode == 'KEY_RIGHTSHIFT':
             self.mode == 'RIGHTSHIFT':
