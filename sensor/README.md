@@ -131,3 +131,15 @@ The `JSON` request body will look like the following:
     ```
     pip install evdev pyudev ibmiotf
     ```
+
+### Systemd Service
+
+To run the scale input script as daemon in the background, execute the following
+steps as root user:
+
+```
+# cp scale-input.service /lib/systemd/system
+# systemctl daemon-reload
+# systemctl enable scale-input
+# systemctl start scale-input
+```

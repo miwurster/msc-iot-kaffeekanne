@@ -1,0 +1,10 @@
+[Unit]
+Description=IoT Scale Input
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python /home/pi/iot/msc-iot-kaffeekanne/sensor/scale-input.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
