@@ -33,7 +33,7 @@ DEFAULT_USB_PRODUCT_ID = '0109'
 
 # Worker thread settings
 QUEUE_MEASUREMENTS_WORKER_INTERVAL = 1
-QUEUE_PAYLOAD_WORKER_INTERVAL = 30
+QUEUE_PAYLOAD_WORKER_INTERVAL = 20
 
 # Global queue variable
 queue_measurements = Queue()
@@ -193,8 +193,12 @@ def queue_payload_worker(q):
                 q.task_done()
             logging.info('Sending payload containing [%s] measurements' % qsize)
             logging.debug(json.dumps(payloads))
-            ibm_client.connect()
-            ibm_client.publishEvent('measurements', 'json', payloads, 2)
+            try:
+                ibm_client.connect()
+                ibm_client.publishEvent('measurements', 'json', payloads, 2)
+            except:
+                logging.error('Faled to send measurement data')
+                ibm_client.disconnect()
             time.sleep(QUEUE_PAYLOAD_WORKER_INTERVAL)
 
 def main():
