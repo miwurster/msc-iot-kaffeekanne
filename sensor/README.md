@@ -90,11 +90,30 @@ input event format. Here, we use the [`python-evdev` module](http://python-evdev
 
 ## Python Sensor
 
-The sensor script `scale_input.py` receives six measurements per seconds from the scale and queues them in a blocking FIFO queue. In a defined interval (default: 1 second), a worker thread collects the queued measurements and forwards them to [IBM Bluemix](http://www.ibm.com/cloud-computing/bluemix/internet-of-things).
+The sensor script `scale_input.py` receives six measurements per seconds from the scale and queues them in a blocking FIFO queue (see `MEASUREMENTS QUEUE` in the sketch below). In a defined interval (default: 1 second), a worker thread collects the queued measurements and combines them to a single `JSON` payload:
 
-The `JSON` request body will look like the following:
+```
+{
+    "timestamp": 1465143375,
+    "measurements": [
+        "136",
+        "136",
+        "136",
+        "136",
+        "136",
+        "136",
+        "136"
+    ]
+}
+```
 
-```json
+This payload is queued up in another FIFO queue (see `PAYLOAD QUEUE` in the sketch below).
+
+Every 30 seconds, an additional worker thread collects those payloads and forwards them in a single MQTT message to [IBM Bluemix](http://www.ibm.com/cloud-computing/bluemix/internet-of-things), using [IBM's client library for Python](https://github.com/ibm-watson-iot/iot-python).
+
+The message body will contain up to 30 measurement payloads and looks like the following:
+
+```
 [
     {
         "timestamp": 1465143375,
@@ -108,6 +127,7 @@ The `JSON` request body will look like the following:
             "136"
         ]
     },
+    ...
     {
         "timestamp": 1465143376,
         "measurements": [
@@ -119,9 +139,14 @@ The `JSON` request body will look like the following:
             "136",
             "136"
         ]
-    }
+    },
+    ...
 ]
 ```
+
+The sketch below shows the overall data flow in our Python Sensor:
+
+![Sensor Flow](http://rawgit.com/miwurster/msc-iot-kaffeekanne/master/sensor-flow.svg)
 
 ### Requirements
 
@@ -135,7 +160,7 @@ The `JSON` request body will look like the following:
 ### Systemd Service
 
 To run the scale input script as daemon in the background, execute the following
-steps as root user:
+steps as `root` user:
 
 ```
 # cp scale-input.service /lib/systemd/system
