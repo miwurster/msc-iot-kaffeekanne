@@ -3,6 +3,8 @@
 
 ![Overview](http://rawgit.com/miwurster/msc-iot-kaffeekanne/master/overview.svg)
 
+[Current Coffee Level](https://kaffeekanne1.eu-gb.mybluemix.net)
+
 ### Contributors
 
 * Daniel Joos
@@ -22,8 +24,3 @@
 * Einfache Webseite die Fuellstand zeigt
 * App: Baecon in range, gehe an REST API und hole Fuellstand, zeige Notification wenn Schwellwert unterschritten
  * Daten speichern, Daten anzeigen, Processing (Archtektur Bild waere nett)
-
-
-
-
-
