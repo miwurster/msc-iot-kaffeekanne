@@ -218,11 +218,11 @@ def main():
 if __name__ == '__main__':
     try:
         options = {
-            'org': 'xasyuj',
+            'org': '9o4uvj',
             'type': 'gram-rz-30k',
-            'id': '2',
+            'id': '4711',
             'auth-method': 'token',
-            'auth-token': 'JJ31YWRi@EksUeoKQ+'
+            'auth-token': '9XQ-3H+Z2h?R)PdhkR'
         }
         ibm_client = ibmiotf.device.Client(options)
         main()
