@@ -5,6 +5,8 @@
 
 [Current Coffee Level](https://kaffeekanne1.eu-gb.mybluemix.net)
 
+[Twitter](https://twitter.com/kaffeekanne1)
+
 ### Contributors
 
 * Daniel Joos
