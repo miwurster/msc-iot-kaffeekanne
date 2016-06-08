@@ -1,7 +1,7 @@
 
 ## Web UI
 
-> Simple mobile-first web interface using [Ionic 2](http://ionicframework.com/docs/v2/getting-started/tutorial/).
+> Simple mobile-first web interface using [Ionic](http://ionicframework.com/docs/v2/getting-started/tutorial/).
 
 The web application is running as Cloud Foundry application on IBM Bluemix.
 
