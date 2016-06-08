@@ -3,26 +3,16 @@
 
 ![Overview](http://rawgit.com/miwurster/msc-iot-kaffeekanne/master/overview.svg)
 
-[Current Coffee Level](https://kaffeekanne1.eu-gb.mybluemix.net)
+### Links
 
-[Twitter](https://twitter.com/kaffeekanne1)
+* [Current Coffee Level](https://kaffeekanne1.eu-gb.mybluemix.net)
+* [IoT Kaffeekanne on Twitter](https://twitter.com/kaffeekanne1)
 
-### Contributors
+### Contributors (and Responsibilities)
 
-* Daniel Joos
-* Eduard Yarolyan
-* Alexander Ziefle
-* Emrullah Apaydin
-* Michael Wurster
-* Nora Selimi
-* Manuel Breithaupt
-
-### Requirements
-
-* Daten in Bluemix Sammelen (Time Series Daten)
-* Schwellwerte definieren
-* Nice to have: Schwellwerte lernen
-* Anzeige, aktuelle Fuellstand, Anazahl Tassen verfuegbar
-* Einfache Webseite die Fuellstand zeigt
-* App: Baecon in range, gehe an REST API und hole Fuellstand, zeige Notification wenn Schwellwert unterschritten
- * Daten speichern, Daten anzeigen, Processing (Archtektur Bild waere nett)
+* Daniel Joos (Python Sensor, Raspberry Pi integration)
+* Eduard Yarolyan (Kaffee API, NoSQL Database Layer)
+* Manuel Breithaupt (Device API, Twitter Integration)
+* Michael Wurster (Raspberry Pi integration, Web Application)
+* Nora Selimi (Documentation, Web Application)
+* Emrullah Apaydin (Documentation)
