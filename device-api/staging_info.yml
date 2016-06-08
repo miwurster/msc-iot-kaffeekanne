@@ -1,9 +1,0 @@
-
----
-buildpack_path: /var/vcap/data/dea_next/admin_buildpacks/c2574de0-fb8f-4975-83fa-016393014f62_b609061ec79c96d2445f8cc87f84590186e23cd0
-detected_buildpack: SDK for Node.js(TM) (ibm-node.js-0.12.14, buildpack-v3.4-20160518-1653)
-start_command: node --max-old-space-size=384 node_modules/node-red/red.js --settings
-  ./bluemix-settings.js -v
-effective_procfile:
-  web: npm start
-
