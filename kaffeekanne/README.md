@@ -1,7 +1,9 @@
 
 ## Web UI
 
-> Simple web interface using [Ionic 2](http://ionicframework.com/docs/v2/getting-started/tutorial/)
+> Simple mobile-first web interface using [Ionic 2](http://ionicframework.com/docs/v2/getting-started/tutorial/)
+
+![Dashboard](http://rawgit.com/miwurster/msc-iot-kaffeekanne/master/webapp-dashboard.png)
 
 ### Requirements
 
