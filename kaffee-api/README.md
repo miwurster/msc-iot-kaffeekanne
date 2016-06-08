@@ -26,4 +26,4 @@ We are exposing a simple `GET` HTTP [endpoint](https://kaffee-api.eu-gb.mybluemi
 }
 ```
 
-The [Web UI](https://github.com/miwurster/msc-iot-kaffeekanne/tree/master/kaffeekanne) project uses this endpoint to request the current filling level of the coffee can.
+The [Web UI](../kaffeekanne) project uses this endpoint to request the current filling level of the coffee can.
