@@ -54,8 +54,6 @@ KEY_0
 KEY_EOL
 ```
 
-**TODO:** _Document the exact length of a line._
-
 ### Measurement Rate
 
 The scale supports three printing modes: _Keypress_, _Stable_ and _Continous_. In the _Keypress_
