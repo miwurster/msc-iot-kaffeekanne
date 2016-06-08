@@ -6,16 +6,16 @@ The challange was, based on this starting position, to build an IoT solution col
 
 ### MVP
 
-After a brainstorming, the team agreed to the following requirements in order provide a minimal viable product:
+After a brainstorming, the team agreed to the following requirements in order to provide a minimal viable product:
 
-* Implement sensor (`Python`) reading the measurements from the scale
+* Implement a sensor (`Python`) reading the measurements from the scale
 * Sensor script has to publish those measurements (one measurement per second) in bulks to IBM's Watson IoT Platform
-* Time-series data of sensor has to be persisted in a NoSQl database
-* Backend has to use thresholds to trigger additional actions
-* Threshold action: Tweet about the current status of the coffee can
-* Optional: Learn thresholds automatically based on historical data
+* The sensor's time-series data has to be persisted in a NoSQL database
+* A backend function has to check thresholds to trigger additional actions
+    * Must: Tweet about the current status of the coffee can
+    * Optional: Learn thresholds automatically based on historical data
 * Implement a RESTful interface to request the current state of the coffee can
-* Having a simple web application utilizing the RESTful interface to visualize the state
+* Having a simple but mobile friendly web application utilizing the RESTful interface to visualize the state
 
 ### Architecture
 
@@ -27,7 +27,7 @@ The [Device API](device-api) is implemented as `Node-RED` Cloud Foundry applicat
 
 The [Kaffee API](kaffee-api) is also implemented as `Node-RED` Cloud Foundry application and is responsible to serve the latest state of the coffee can in a RESTful manner.
 
-Using Cloud Foundry's `staticfile` buildpack, we are going to serve the [end-user web interface](kaffeekanne). The end-users will access the application simply thru their web browser (optimized for mobile devices).
+Using Cloud Foundry's `staticfile` buildpack, we are going to serve the end-user's [web application](kaffeekanne). The end-users will access the application simply thru their web browser (optimized for mobile devices).
 
 ### Components
 
