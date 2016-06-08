@@ -25,7 +25,7 @@ If the state changes back, then we will tweet that there is now new coffee avail
 
 From the Gram scale, we receive bulked sensor data every 30 seconds. This bulk contains the measurements of the last 30 seconds (one measurement per second). For each measurement we are going to create an entry in our NoSQL data store.
 
-Due to the fact that a single measurement consists of six values ([details](https://github.com/miwurster/msc-iot-kaffeekanne/tree/master/sensor#python-sensor)) we are using the median of those values to persist.
+Due to the fact that a single measurement consists of six values ([details](../sensor#python-sensor)) we are using the median of those values to persist.
 
 The following shows a single measurement we get from the Gram scale:
 
