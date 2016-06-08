@@ -47,5 +47,5 @@ Using Cloud Foundry's `staticfile` buildpack, we are going to serve the end-user
 * Eduard Yarolyan (Kaffee API, NoSQL Database Layer)
 * Manuel Breithaupt (Device API, Twitter Integration)
 * Michael Wurster (Raspberry Pi integration, Web Application)
-* Nora Selimi (Documentation, Web Application)
+* Arbnora Selimi (Documentation, Web Application)
 * Emrullah Apaydin (Documentation, Bluemix integration)
