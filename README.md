@@ -21,9 +21,17 @@ After a brainstorming, the team agreed to the following requirements in order pr
 
 ![Overview](http://rawgit.com/miwurster/msc-iot-kaffeekanne/master/overview.svg)
 
+The [GRAM RZ-30](sensor) scale is connected to a Raspberry Pi. Those two parts build our sensor. On the Raspberry Pi, a Python script receives the measurements from the scale and pushes them to IBM Bluemix.
+
+The [Device API](device-api) is implemented as `Node-RED` Cloud Foundry application and receives the data from our sensor. The data will be persisted into a NoSQL data store. Additionally, the application checks a certain threshold and if this threshold is violated it will tweet in order to inform the end users about its current status.
+
+The [Kaffee API](kaffee-api) is also implemented as `Node-RED` Cloud Foundry application and is responsible to serve the latest state of the coffee can in a RESTful manner.
+
+Using Cloud Foundry's `staticfile` buildpack, we are going to serve the [end-user web interface](kaffeekanne). The end-users will access the application simply thru their web browser (optimized for mobile devices).
+
 ### Components
 
-* [Sensor](sensor)
+* [Sensor](sensor) (Scale & Raspberry Pi)
 * [Device API](device-api)
 * [Kaffee API](kaffee-api)
 * [Web UI](kaffeekanne)
