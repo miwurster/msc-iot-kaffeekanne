@@ -25,7 +25,7 @@ cf login
     > Username: ...
     > Password: ...
 cf target -o kaffeekanne -s dev
-cf push kaffeekanne -b https://github.com/cloudfoundry/staticfile-buildpack
+cf push kaffeekanne1 -b https://github.com/cloudfoundry/staticfile-buildpack
 ```
 
-The web application will be available at https://kaffeekanne.eu-gb.mybluemix.net.
+The web application will be available at https://kaffeekanne1.eu-gb.mybluemix.net.
