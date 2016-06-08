@@ -12,7 +12,7 @@ The overall flow is shown below:
 
 ![Node-RED Flow](http://rawgit.com/miwurster/msc-iot-kaffeekanne/master/kaffee-api-flow.png)
 
-We are exposing a simple `GET` HTTP [endpoint](https://kaffee-api.eu-gb.mybluemix.net/state) (`/state`) which returns a `JSON` response.
+We are exposing a simple `GET` HTTP [endpoint](https://kaffee-api.eu-gb.mybluemix.net/state) (`/state`) which returns a `JSON` response representing the last measurement received from the Gram scale.
 
 ```json
 {
