@@ -14,7 +14,7 @@ The overall flow is shown below:
 
 First of all, we created a _device_ in IBM's Watson IoT Platform. This _device_ represents our [Gram scale](https://github.com/miwurster/msc-iot-kaffeekanne/wiki/GRAM-RZ30K-Device).
 
-We were then able to create a `input` node for this device in order to process the data received by the Gram scale.
+We were then able to create an `input` node for this device in order to process the data received by the Gram scale.
 On the one hand, we simply store the sensor data in a NoSQL database (utilizing IBM's Cloudant data storage service).
 On the other hand, we are checking the current weight of the coffee can in order to decide if we have to trigger additional actions.
 In our case, the action is to tweet about the current coffee level.
@@ -44,7 +44,7 @@ The following shows a single measurement we get from the Gram scale:
 }
 ```
 
-The `ParseMessage` node in our `Node-RED` flow parses this payload and transforms it into the following
+The `ParseMessage` node in our `Node-RED` flow parses this payload and transforms it into the following payload:
 
 ```json
 {
