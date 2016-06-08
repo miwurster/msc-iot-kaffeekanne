@@ -3,7 +3,9 @@
 
 > Simple mobile-first web interface using [Ionic 2](http://ionicframework.com/docs/v2/getting-started/tutorial/).
 
-The web application is running as Cloud Foundry application on IBM Bluemix and is available at https://kaffeekanne1.eu-gb.mybluemix.net.
+The web application is running as Cloud Foundry application on IBM Bluemix and is available at 
+
+https://kaffeekanne1.eu-gb.mybluemix.net.
 
 ![Dashboard](http://rawgit.com/miwurster/msc-iot-kaffeekanne/master/webapp-dashboard.png)
 
