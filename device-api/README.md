@@ -1,7 +1,7 @@
 
 # Device API
 
-We used `Node-RED`, a visual tool for wiring the Internet of Things, in order to model the data flow of our Device API.
+We used `Node-RED`, a visual tool for wiring the Internet of Things, in order to model and implement the data flow of our Device API.
 
 ### Overview
 
