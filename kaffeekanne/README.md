@@ -9,6 +9,8 @@ It is available at https://kaffeekanne1.eu-gb.mybluemix.net.
 
 ![Dashboard](http://rawgit.com/miwurster/msc-iot-kaffeekanne/master/webapp-dashboard.png)
 
+The actual web application consists of a bunch of HTML and CSS files that can be statically served. The communication with the backend services is done using client-side Javascript.
+
 ### Requirements
 
 ```bash
